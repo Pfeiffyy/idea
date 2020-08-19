@@ -1,0 +1,10 @@
+
+
+        //----------------------------------
+		btnSuchen = new JButton("Suchen");
+		btnSuchen.setBounds(327, 9, 97, 25);
+		frame.getContentPane().add(btnSuchen);
+
+		btnSpeichern = new JButton("Speichern");
+		btnSpeichern.setBounds(12, 355, 97, 25);
+		frame.getContentPane().add(btnSpeichern);

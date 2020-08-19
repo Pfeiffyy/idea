@@ -1,0 +1,8 @@
+ID;int4;x
+FeldChar;varchar(255);
+FeldInt;int4;
+test1;varchar(255);
+Test4;int4;
+Blkk;varchar(255);
+ff;int4;
+ttt;int4;

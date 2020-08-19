@@ -1,0 +1,8 @@
+private JTextField textID;
+private JTextField textFeldChar;
+private JTextField textFeldInt;
+private JTextField texttest1;
+private JTextField textTest4;
+private JTextField textBlkk;
+private JTextField textff;
+private JTextField textttt;
