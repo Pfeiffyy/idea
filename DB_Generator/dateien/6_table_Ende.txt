@@ -1,11 +1,10 @@
 		// ----------Table----------
-		String[] columnNames = { "Land", "Durchschnittliche Fernsehdauer pro Tag in Minuten" };
 
 		
-		String[][] rowData = { { "Japan", "245" }, { "USA", "240" }, { "Italien", "220" }, { "Spanien", "217" },
-				{ "Türkei", "215" }, { "England", "214" }, { "Frankreich", "190" }, { "Griechenland", "185" },
-				{ "Deutschland", "180" }, { "Portugal", "170" } };
-		
+//		String[][] rowData = { { "Japan", "245" }, { "USA", "240" }, { "Italien", "220" }, { "Spanien", "217" },
+//				{ "Türkei", "215" }, { "England", "214" }, { "Frankreich", "190" }, { "Griechenland", "185" },
+//				{ "Deutschland", "180" }, { "Portugal", "170" } };
+		String[][] rowData = {};
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(327, 37, 696, 348);
@@ -15,4 +14,20 @@
 				scrollPane.setViewportView(table);
 
 	}
+	
+	
+		// ----------------------------------------------------------------
+	private static String[] ArrayList2StringList(ArrayList arrayList) {
+		// ----------------------------------------------------------------
+
+		String[] outStringList = new String[arrayList.size()];
+		for (int x = 0; x < arrayList.size(); x++) {
+			outStringList[x] = (String) arrayList.get(x);
+
+		}
+
+		return outStringList;
+	}
+	
+	
 }

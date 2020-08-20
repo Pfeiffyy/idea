@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.util.ArrayList;
 
 public class OutGui {
 
@@ -16,3 +17,4 @@ public class OutGui {
 	private JTextField textSuche;
 	private JButton btnSuchen;
 	private JButton btnSpeichern;
+	static ArrayList<String> feldListe = new ArrayList<String>();

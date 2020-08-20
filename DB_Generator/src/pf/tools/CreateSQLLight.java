@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import de.pfeiffy.help.Helper;
@@ -22,24 +23,29 @@ public class CreateSQLLight {
 	static String tabelle = "tab1";
 	static String csvName = "InputDB.csv";
 	static String staticFile = "dateien/2_static.txt";
-	static String labeltextFile = "labelText.txt";
+	static String labeltextFile = "dateien/4_labelText.txt";
 	static String tabFelder[] = { "ID;int4", "FeldChar;varchar(254)" };
+	static String outFileJava = "src\\pf\\gui\\OutGui.java";
+	static ArrayList<String> feldNamen = new ArrayList<String>();
 
 	/**
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		makeGui(csvName);
+		new File(outFileJava).delete();
+		
+		
 		connect();
 		createNewTable(db, tabelle, csvName);
+		makeGui(csvName);
 
-		String[] dateien = { "dateien/1_deklaration.txt", staticFile,"dateien/3_nachStatic.txt","dateien/4_labelText.txt","dateien/5_suchButton.txt", "dateien/6_table_Ende.txt" };
-		File outFile = Helper.dateienInDatei(dateien, "src\\pf\\gui\\OutGui.java");
+		String[] dateien = { "dateien/1_deklaration.txt", staticFile, "dateien/3_nachStatic.txt",
+				"dateien/4_labelText.txt", "dateien/5_suchButton.txt", "dateien/6_table_Ende.txt" };
+		File outFile = Helper.dateienInDatei(dateien, outFileJava);
 
 		System.out.println();
+
 	}
-
-
 
 	private static void makeGui(String csvName) {
 		ArrayList<DbFeld> tabFelder = GetDbFelder(csvName);
@@ -49,36 +55,35 @@ public class CreateSQLLight {
 		int liO = 33;
 		int liU = 36;
 		int textBound = 40;
+		Helper.schreiben("//--------Beginn generierte Komponenten-----------", labeltextFile, true);
 
 		for (DbFeld dbFeld : tabFelder) {
 			// globale Variablen Deklaration
-			Helper.schreiben("--------Beginn generierte Komponenten-----------", labeltextFile, true);
 
 			Helper.schreiben("private JTextField text" + dbFeld.feld + ";", staticFile, true);
 
 			// Label schreiben
-//			JLabel lblSuche = new JLabel("Suchwert");
 			String text = "JLabel lbl" + dbFeld.feld + " = new JLabel(\"" + dbFeld.feld + "\");";
 			Helper.schreiben(text, labeltextFile, true);
-//			lblSuche.setBounds(12, 13, 56, 16);
 			text = "lbl" + dbFeld.feld + ".setBounds(12," + liO + " , 56, " + liU + ");";
 			Helper.schreiben(text, labeltextFile, true);
-//			frame.getContentPane().add(lblSuche);
 			text = "frame.getContentPane().add(" + "lbl" + dbFeld.feld + ");";
 			Helper.schreiben(text, labeltextFile, true);
+			text = "feldListe.add(\""+ dbFeld.feld+"\");";
+			Helper.schreiben(text, labeltextFile, true);
+			
+
 //			
 			Helper.schreiben(" ", labeltextFile, true);
 
-//			textSuche = new JTextField();
 			text = "text" + dbFeld.feld + " = new JTextField();";
 			Helper.schreiben(text, labeltextFile, true);
-//			textSuche.setBounds(80, 10, 209, 22);
 			text = "text" + dbFeld.feld + ".setBounds(80, " + textBound + ", 209, 22);";
 			Helper.schreiben(text, labeltextFile, true);
-//			frame.getContentPane().add(textSuche);
 			text = "frame.getContentPane().add(" + "text" + dbFeld.feld + ");";
 			Helper.schreiben(text, labeltextFile, true);
-			Helper.schreiben("-------------------------------------------------", labeltextFile, true);
+			Helper.schreiben(" ", labeltextFile, true);
+			Helper.schreiben(" ", labeltextFile, true);
 
 			liO += 20;
 			liU += 20;
@@ -86,6 +91,14 @@ public class CreateSQLLight {
 
 			System.out.println();
 		}
+
+
+		// Überschriften für Tabelle erstellen
+		Helper.schreiben("String[] columnNames = ArrayList2StringList(feldListe) ;"
+				+ ""
+				+ "", labeltextFile, true);
+
+
 		System.out.println();
 	}
 
@@ -95,6 +108,7 @@ public class CreateSQLLight {
 		for (String tabF : tabFelder) {
 			String[] feld = tabF.split(";");
 			DbFeld dbFeld = new DbFeld(feld[0], feld[1], 0);
+			feldNamen.add(feld[0]);
 			outList.add(dbFeld);
 		}
 
